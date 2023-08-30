@@ -135,9 +135,9 @@ class HomePage1 extends StatelessWidget {
                     child: Row(
                       children: [
                         Image.asset(
-                          'assets/doctor2.png',
-                          width: 50.0,
-                          height: 50.0,
+                          'assets/doctor3.png',
+                          width: 64.0,
+                          height: 55.0,
                           fit: BoxFit.cover,
                         ),
                         const SizedBox(width: 20.0),
@@ -182,9 +182,9 @@ class HomePage1 extends StatelessWidget {
                     child: Row(
                       children: [
                         Image.asset(
-                          'assets/doctor2.png',
-                          width: 50.0,
-                          height: 50.0,
+                          'assets/doctor4.png',
+                          width: 64.0,
+                          height: 55.0,
                           fit: BoxFit.cover,
                         ),
                         const SizedBox(width: 20.0),
@@ -229,9 +229,9 @@ class HomePage1 extends StatelessWidget {
                     child: Row(
                       children: [
                         Image.asset(
-                          'assets/doctor2.png',
-                          width: 50.0,
-                          height: 50.0,
+                          'assets/doctor5.png',
+                          width: 64.0,
+                          height: 55.0,
                           fit: BoxFit.cover,
                         ),
                         const SizedBox(width: 20.0),

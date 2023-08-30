@@ -30,13 +30,14 @@ class MyContainerApp extends StatelessWidget {
             ),
             const SizedBox(height: 0),
             Container(
-              width: 335,
+              width: 327,
               height: 100,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                      color: const Color.fromARGB(255, 25, 141, 182))),
+                      color: const Color.fromARGB(255, 25, 141, 182),
+                      width: 2)),
               child: Stack(
                 alignment: Alignment.topRight,
                 children: [
@@ -89,7 +90,7 @@ class MyContainerApp extends StatelessWidget {
                           width: 70,
                           height: 50,
                           decoration: const BoxDecoration(
-                            color: Color(0xff5e87a7),
+                            color: Color.fromARGB(255, 126, 174, 191),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10),
@@ -125,13 +126,13 @@ class MyContainerApp extends StatelessWidget {
             ),
             const SizedBox(height: 9),
             Container(
-              width: 335,
+              width: 327,
               height: 100,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 255, 255, 255),
                 borderRadius: BorderRadius.circular(10),
-                border:
-                    Border.all(color: const Color.fromARGB(255, 25, 141, 182)),
+                border: Border.all(
+                    color: const Color.fromARGB(255, 25, 141, 182), width: 2),
               ),
               child: Stack(
                 alignment: Alignment.topRight,
@@ -185,7 +186,7 @@ class MyContainerApp extends StatelessWidget {
                           width: 70,
                           height: 50,
                           decoration: const BoxDecoration(
-                            color: Color(0xff5e87a7),
+                            color: Color.fromARGB(255, 126, 174, 191),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10),
@@ -221,13 +222,13 @@ class MyContainerApp extends StatelessWidget {
             ),
             const SizedBox(height: 13),
             Container(
-              width: 335,
+              width: 327,
               height: 100,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                border:
-                    Border.all(color: const Color.fromARGB(255, 25, 141, 182)),
+                border: Border.all(
+                    color: const Color.fromARGB(255, 25, 141, 182), width: 2),
               ),
               child: Stack(
                 alignment: Alignment.topRight,
@@ -278,10 +279,10 @@ class MyContainerApp extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Container(
-                          width: 70,
+                          width: 72,
                           height: 50,
                           decoration: const BoxDecoration(
-                            color: Color(0xff5e87a7),
+                            color: Color.fromARGB(255, 126, 174, 191),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10),
@@ -317,13 +318,13 @@ class MyContainerApp extends StatelessWidget {
             ),
             const SizedBox(height: 13),
             Container(
-              width: 335,
+              width: 327,
               height: 100,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                border:
-                    Border.all(color: const Color.fromARGB(255, 25, 141, 182)),
+                border: Border.all(
+                    color: const Color.fromARGB(255, 25, 141, 182), width: 2),
               ),
               child: Stack(
                 alignment: Alignment.topRight,
@@ -377,7 +378,7 @@ class MyContainerApp extends StatelessWidget {
                           width: 70,
                           height: 50,
                           decoration: const BoxDecoration(
-                            color: Color(0xff5e87a7),
+                            color: Color.fromARGB(255, 126, 174, 191),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10),
@@ -413,14 +414,13 @@ class MyContainerApp extends StatelessWidget {
             ),
             const SizedBox(height: 13),
             Container(
-              width: 335,
+              width: 327,
               height: 100,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  color: const Color.fromARGB(255, 25, 141, 182),
-                ),
+                    color: const Color.fromARGB(255, 25, 141, 182), width: 2),
               ),
               child: Stack(
                 alignment: Alignment.topRight,
@@ -474,7 +474,7 @@ class MyContainerApp extends StatelessWidget {
                           width: 70,
                           height: 50,
                           decoration: const BoxDecoration(
-                            color: Color(0xff5e87a7),
+                            color: Color.fromARGB(255, 126, 174, 191),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10),
