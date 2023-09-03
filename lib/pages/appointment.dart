@@ -95,7 +95,7 @@ class _AppointmentState extends State<Appointment> {
   }
 
   void _showAppointmentConfirmationDialog() {
-    if (today != null && selectedTimeSlot != null) {
+    if (selectedTimeSlot != null) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -232,7 +232,7 @@ class _AppointmentState extends State<Appointment> {
                     child: ElevatedButton(
                       onPressed: () {
                         // Check if both date and time slot are selected
-                        if (today != null && selectedTimeSlot != null) {
+                        if (selectedTimeSlot != null) {
                           _showAppointmentConfirmationDialog();
                         } else {
                           // Show a message indicating that both date and time slot must be selected.
