@@ -1,60 +1,217 @@
 import 'package:flutter/material.dart';
 
-class FeedbackPage extends StatelessWidget {
-  const FeedbackPage({Key? key}) : super(key: key);
+class MyPage extends StatefulWidget {
+  const MyPage({super.key});
+
+  @override
+  State<MyPage> createState() => _MyPageState();
+}
+
+class _MyPageState extends State<MyPage> {
+  final TextEditingController _nameController = TextEditingController();
+  final List<String> days =
+      List.generate(31, (index) => (index + 1).toString());
+  final List<String> months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+  final List<String> years =
+      List.generate(100, (index) => (2023 - index).toString());
+
+  String selectedDay = '1';
+  String selectedMonth = 'January';
+  String selectedYear = '2023';
+  String selectedGender = 'Female'; // Default value for gender
+
+  final TextEditingController _mobileController = TextEditingController();
+  final TextEditingController _parentMobileController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Stack(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.grey),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          'Patient Details',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+      ),
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 250.0,
-                width: 400.0, // Set the height of the header container
-                color: const Color.fromARGB(255, 80, 148, 173),
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 2.0),
-                  ],
+              Text(
+                "Patient's Name",
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+              SizedBox(height: 8),
+              TextField(
+                controller: _nameController,
+                decoration: InputDecoration(
+                  hintText: "Enter patient's name",
+                  border: OutlineInputBorder(),
                 ),
               ),
-              Positioned(
-                top: 120.0, // Adjust the top position to move the picture down
-                left: MediaQuery.of(context).size.width / 2 - 60.0,
-                child: Container(
-                  width: 120.0,
-                  height: 120.0,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: const Color.fromARGB(255, 0, 82, 142),
-                      width: 2,
-                    ),
+              SizedBox(height: 16),
+              Text(
+                "Date of Birth",
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+              Row(
+                children: [
+                  DropdownButton<String>(
+                    value: selectedDay,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedDay = value!;
+                      });
+                    },
+                    items: days.map<DropdownMenuItem<String>>(
+                      (String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      },
+                    ).toList(),
                   ),
-                  child: const CircleAvatar(
-                    radius: 60.0,
-                    backgroundImage: AssetImage(
-                      'assets/doctor1.jpg',
-                    ),
+                  SizedBox(width: 8),
+                  DropdownButton<String>(
+                    value: selectedMonth,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedMonth = value!;
+                      });
+                    },
+                    items: months.map<DropdownMenuItem<String>>(
+                      (String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      },
+                    ).toList(),
                   ),
+                  SizedBox(width: 8),
+                  DropdownButton<String>(
+                    value: selectedYear,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedYear = value!;
+                      });
+                    },
+                    items: years.map<DropdownMenuItem<String>>(
+                      (String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      },
+                    ).toList(),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              Text(
+                "Gender",
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+              Row(
+                children: [
+                  Radio<String>(
+                    value: 'Female',
+                    groupValue: selectedGender,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedGender = value!;
+                      });
+                    },
+                  ),
+                  Text('Female'),
+                  SizedBox(width: 16),
+                  Radio<String>(
+                    value: 'Male',
+                    groupValue: selectedGender,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedGender = value!;
+                      });
+                    },
+                  ),
+                  Text('Male'),
+                ],
+              ),
+              SizedBox(height: 16),
+              Text(
+                "Mobile Number",
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+              SizedBox(height: 8),
+              TextField(
+                controller: _mobileController,
+                decoration: InputDecoration(
+                  hintText: "Enter mobile number",
+                  border: OutlineInputBorder(),
                 ),
+              ),
+              SizedBox(height: 16),
+              Text(
+                "Mobile Number of Parent",
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+              SizedBox(height: 8),
+              TextField(
+                controller: _parentMobileController,
+                decoration: InputDecoration(
+                  hintText: "Enter parent's mobile number",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 16),
+              Text(
+                "Personal Address",
+                style: TextStyle(fontSize: 18, color: Colors.black),
+              ),
+              SizedBox(height: 8),
+              TextField(
+                controller: _addressController,
+                decoration: InputDecoration(
+                  hintText: "Enter personal address",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 24),
+              ElevatedButton(
+                onPressed: () {
+                  // Do something with the collected data.
+                },
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.green), // Set button color to green
+                child: Text('Next'),
               ),
             ],
           ),
-          Stack(
-            children: [
-              Container(
-                height: 432,
-                width: 355,
-                padding: const EdgeInsets.all(10.0),
-                color: const Color.fromARGB(255, 255, 255, 255),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }

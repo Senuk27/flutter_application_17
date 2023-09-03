@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_17/pages/doctor_details.dart';
+import 'package:flutter_application_17/pages/medicine_description.dart';
+import 'package:flutter_application_17/pages/profile.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Home Page',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomePage1(),
-    );
-  }
-}
+import 'notification.dart';
 
 class HomePage1 extends StatelessWidget {
   const HomePage1({super.key});
+
+  void _handleNotificationPress(BuildContext context) {
+    // Handle notification button press
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const NotificationPage()));
+  }
+
+  void _handleProfileImagePress(BuildContext context) {
+    // Handle profile image press
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const ProfilePage()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,44 +30,50 @@ class HomePage1 extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: const Color.fromARGB(255, 25, 141, 182),
-                        width: 2.0,
-                      ), // Add border
+              GestureDetector(
+                onTap: () => _handleProfileImagePress(
+                    context), // Call the onPressed function
+                child: Row(
+                  children: [
+                    Container(
+                      alignment: Alignment.topLeft,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: const Color.fromARGB(255, 25, 141, 182),
+                          width: 2.0,
+                        ),
+                      ),
+                      child: const CircleAvatar(
+                        radius: 40.0,
+                        backgroundImage:
+                            AssetImage('assets/profile_picture.jpg'),
+                      ),
                     ),
-                    child: const CircleAvatar(
-                      radius: 40.0,
-                      backgroundImage: AssetImage('assets/profile_picture.jpg'),
+                    const SizedBox(
+                      width: 20.0,
+                    ), // Add space between picture and text
+                    const Text(
+                      'Senuk ,',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'RedHatDisplay',
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 20.0,
-                  ), // Add space between picture and text
-                  const Text(
-                    'Senuk ,',
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'RedHatDisplay',
+                    const Spacer(), // Add spacer to push the icon to the right
+                    IconButton(
+                      icon: const Icon(Icons.notifications_on),
+                      onPressed: () => _handleNotificationPress(
+                          context), // Call the onPressed function
                     ),
-                  ),
-                  const Spacer(), // Add spacer to push the icon to the right
-                  IconButton(
-                    icon: const Icon(Icons.notifications_on),
-                    onPressed: () {
-                      // Handle notification button press
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(
-                  height: 15.0), // Add spacing between profile and container
+                height: 15.0,
+              ),
+              // Add spacing between profile and container
               Container(
                 padding: const EdgeInsets.all(20.0),
                 decoration: BoxDecoration(
@@ -279,41 +287,98 @@ class HomePage1 extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Container(
-                    width: 135.0,
-                    height: 80.0,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 151, 217, 240),
-                      borderRadius:
-                          BorderRadius.circular(10.0), // Add border radius
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Doctor details',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'RedHatDisplay',
+                  GestureDetector(
+                    onTap: () {
+                      // Handle Doctor Details container press
+                      // You can navigate to a new page or perform any action you want
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DoctorDetailsPage()),
+                      );
+                    },
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: 135.0,
+                          height: 80.0,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 151, 217, 240),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                         ),
-                      ),
+                        const Positioned.fill(
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Text(
+                              'Doctor details',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'RedHatDisplay',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 5,
+                          right: 40,
+                          child: Image.asset(
+                            'assets/doctor6.png', // Add your image path
+                            width: 50,
+                            height: 55,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(width: 20.0), // Add spacing between containers
-                  Container(
-                    width: 135.0,
-                    height: 80.0,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 151, 217, 240),
-                      borderRadius:
-                          BorderRadius.circular(10.0), // Add border radius
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Medicine description',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'RedHatDisplay',
+                  GestureDetector(
+                    onTap: () {
+                      // Handle Medicine Description container press
+                      // You can navigate to a new page or perform any action you want
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const MedicineDescriptionPage()),
+                      );
+                    },
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: 135.0,
+                          height: 80.0,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 151, 217, 240),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                         ),
-                      ),
+                        const Positioned.fill(
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Text(
+                              'Medicine description',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'RedHatDisplay',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 5,
+                          right: 40,
+                          child: Image.asset(
+                            'assets/doctor7.png', // Add your image path
+                            width: 50,
+                            height: 55,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

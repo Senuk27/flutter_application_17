@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     const HomePage1(),
     const Appointment(),
     const MyContainerApp(),
-    const FeedbackPage(),
+    const MyPage(),
   ];
 
   @override
