@@ -34,9 +34,88 @@ class _AppointmentState extends State<Appointment> {
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       today = day;
-      selectedTimeSlot =
-          null; // Clear the selected time slot when day is changed
+      selectedTimeSlot = null;
+
+      if (day.weekday == DateTime.saturday || day.weekday == DateTime.sunday) {
+        _showWeekendDialog();
+      }
     });
+  }
+
+  void _showWeekendDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Not Available"),
+          content: const Text(
+              "Selected day is a weekend and not available for appointments."),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text("Okay"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _handleOkayButton() {
+    Navigator.pop(context); // Go back to the calendar
+  }
+
+  void _onTimeSlotSelected(int index) {
+    setState(() {
+      selectedTimeSlot = index;
+    });
+  }
+
+  void _showSelectDateAndTimeSlotMessage() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Missing Selection"),
+          content: const Text(
+              "Please select both a date and a time slot to make an appointment."),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text("Okay"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showAppointmentConfirmationDialog() {
+    if (today != null && selectedTimeSlot != null) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Appointment Successful"),
+            content: const Text("You have successfully made an appointment."),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: const Text("Okay"),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      _showSelectDateAndTimeSlotMessage();
+    }
   }
 
   @override
@@ -46,7 +125,6 @@ class _AppointmentState extends State<Appointment> {
     ));
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -58,123 +136,125 @@ class _AppointmentState extends State<Appointment> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              TableCalendar(
-                locale: "en_US",
-                rowHeight: 40, // Adjust the row height
-                headerStyle: const HeaderStyle(
-                    formatButtonVisible: false, titleCentered: true),
-                availableGestures: AvailableGestures.all,
-                selectedDayPredicate: (day) => isSameDay(day, today),
-                focusedDay: today,
-                firstDay: DateTime(2023, 8, 1),
-                lastDay: DateTime(2024, 1, 31),
-                onDaySelected: _onDaySelected,
+      body: Column(
+        children: [
+          TableCalendar(
+            locale: "en_US",
+            rowHeight: 40,
+            headerStyle: const HeaderStyle(
+                formatButtonVisible: false, titleCentered: true),
+            availableGestures: AvailableGestures.all,
+            selectedDayPredicate: (day) => isSameDay(day, today),
+            focusedDay: today,
+            firstDay: DateTime(2023, 8, 1),
+            lastDay: DateTime(2023, 11, 30),
+            onDaySelected: _onDaySelected,
+            calendarStyle: CalendarStyle(
+              outsideDaysVisible: false,
+              outsideTextStyle: TextStyle(
+                color: Colors.grey[200],
               ),
-
-              const SizedBox(height: 20),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.green, // Green color extending to the footer
+                borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
+              ),
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      // Handle "Morning" button press here
-                    },
-                    child: const Text("Morning"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          // Handle "Morning" button press here
+                        },
+                        child: const Text("Morning"),
+                      ),
+                      const SizedBox(width: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          // Handle "Evening" button press here
+                        },
+                        child: const Text("Evening"),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Handle "Evening" button press here
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Please select the time slot",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 20),
+                  GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      childAspectRatio: 100 / 40,
+                    ),
+                    shrinkWrap: true,
+                    itemCount: timeSlots.length,
+                    itemBuilder: (context, index) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          _onTimeSlotSelected(index);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: selectedTimeSlot == index
+                              ? Colors.red
+                              : Colors.grey[300],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            side: const BorderSide(
+                              color: Colors.white,
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          timeSlots[index],
+                          style: const TextStyle(
+                              fontSize: 11, color: Colors.black),
+                        ),
+                      );
                     },
-                    child: const Text("Evening"),
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: 320,
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Check if both date and time slot are selected
+                        if (today != null && selectedTimeSlot != null) {
+                          _showAppointmentConfirmationDialog();
+                        } else {
+                          // Show a message indicating that both date and time slot must be selected.
+                          _showSelectDateAndTimeSlotMessage();
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14.0),
+                        ),
+                      ),
+                      child: const Text("Make Appointment",
+                          style: TextStyle(color: Colors.blue)),
+                    ),
                   ),
                 ],
               ),
-
-              const SizedBox(height: 10), // Add some spacing
-
-              const Text(
-                "Please select the time slot", // New text here
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(height: 20),
-
-              GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  childAspectRatio: 100 / 40, // Adjusted aspect ratio
-                ),
-                shrinkWrap: true,
-                itemCount: timeSlots.length,
-                itemBuilder: (context, index) {
-                  return ElevatedButton(
-                    onPressed: () {
-                      _onTimeSlotSelected(
-                          index); // Handle time slot button press here
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: selectedTimeSlot == index
-                          ? Colors.red
-                          : const Color.fromARGB(255, 248, 247,
-                              247), // Change color to red if selected
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        side: const BorderSide(
-                          color: Colors.white, // Add white border stroke
-                          width: 2.0,
-                        ),
-                      ),
-                    ),
-                    child: Text(
-                      timeSlots[index],
-                      style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.black), // Adjust font size here
-                    ),
-                  );
-                },
-              ),
-
-              const SizedBox(height: 20),
-
-              SizedBox(
-                width: 320, // Set the desired width
-                height: 56, // Set the desired height
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Handle "Make Appointment" button press here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white, // Set the button color to white
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(14.0), // Set the corner radius
-                    ),
-                  ),
-                  child: const Text("Make Appointment",
-                      style: TextStyle(
-                          color: Colors.blue)), // Set text color to blue
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
-  }
-
-  void _onTimeSlotSelected(int index) {
-    setState(() {
-      selectedTimeSlot = index; // Update selected time slot index
-    });
   }
 }

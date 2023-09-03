@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     const HomePage1(),
     const Appointment(),
     const MyContainerApp(),
-    const MyPage(),
+    const FeedbackPage(),
   ];
 
   @override
@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
               ),
         ),
         child: BottomNavigationBar(
+          elevation: 0.0,
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           type: BottomNavigationBarType.fixed,
           selectedItemColor: const Color.fromARGB(255, 28, 107, 164),

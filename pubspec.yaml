@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
   table_calendar: ^3.0.9
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,14 @@ flutter:
      - assets/doctor5.png
      - assets/doctor6.png
      - assets/doctor7.png
+     - assets/doctor8.jpg
+     - assets/doctor9.jpg
+     - assets/doctor10.jpg
+     - assets/notification1.png
+     - assets/notification2.png
+     - assets/notification3.png
+     - assets/notification4.png
+     - assets/notification5.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
