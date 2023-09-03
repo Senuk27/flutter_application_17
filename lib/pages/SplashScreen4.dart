@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_17/pages/home_page.dart';
+
 import 'package:flutter_application_17/pages/signin.dart';
 
 class SplashScreen4 extends StatelessWidget {
