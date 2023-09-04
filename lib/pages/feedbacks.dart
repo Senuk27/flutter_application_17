@@ -81,17 +81,17 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   );
                 },
               ),
-              const Expanded(
-                child: Align(
-                  child: Text(
-                    'Feedback',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 26.0,
-                      fontFamily: 'RedHatDisplay',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+              const SizedBox(
+                height: 110,
+                width: 60,
+              ),
+              const Text(
+                'Feedbacks',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontFamily: 'RedHatDisplay',
                 ),
               ),
             ],

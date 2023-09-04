@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_17/pages/home_page.dart';
 
 class MyContainerApp extends StatelessWidget {
   const MyContainerApp({super.key});
@@ -7,20 +8,30 @@ class MyContainerApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(left: 12),
+        padding: const EdgeInsets.only(left: 2, right: 10),
         child: Column(
           children: [
             Row(
               children: [
                 IconButton(
                   icon: const Icon(Icons.arrow_back),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ),
+                    );
+                  },
                 ),
-                const SizedBox(height: 130),
+                const SizedBox(
+                  height: 110,
+                  width: 10,
+                ),
                 const Text(
                   'All Records',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                     fontFamily: 'RedHatDisplay',
@@ -33,10 +44,10 @@ class MyContainerApp extends StatelessWidget {
               width: 327,
               height: 100,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: const Color.fromARGB(255, 244, 240, 240),
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                      color: const Color.fromARGB(255, 25, 141, 182),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       width: 2)),
               child: Stack(
                 alignment: Alignment.topRight,
@@ -45,10 +56,10 @@ class MyContainerApp extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Container(
-                        width: 270,
+                        width: 255,
                         padding: const EdgeInsets.only(
                             top: 15, bottom: 5, left: 35, right: 10),
-                        color: Colors.white,
+                        color: const Color.fromARGB(255, 244, 240, 240),
                         child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -129,10 +140,10 @@ class MyContainerApp extends StatelessWidget {
               width: 327,
               height: 100,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 244, 240, 240),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                    color: const Color.fromARGB(255, 25, 141, 182), width: 2),
+                    color: const Color.fromARGB(255, 254, 254, 254), width: 2),
               ),
               child: Stack(
                 alignment: Alignment.topRight,
@@ -141,10 +152,10 @@ class MyContainerApp extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Container(
-                        width: 270,
+                        width: 255,
                         padding: const EdgeInsets.only(
                             top: 15, bottom: 5, left: 35, right: 10),
-                        color: Colors.white,
+                        color: const Color.fromARGB(255, 244, 240, 240),
                         child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -225,10 +236,10 @@ class MyContainerApp extends StatelessWidget {
               width: 327,
               height: 100,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: const Color.fromARGB(255, 244, 240, 240),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                    color: const Color.fromARGB(255, 25, 141, 182), width: 2),
+                    color: const Color.fromARGB(255, 255, 255, 255), width: 2),
               ),
               child: Stack(
                 alignment: Alignment.topRight,
@@ -237,10 +248,10 @@ class MyContainerApp extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Container(
-                        width: 270,
+                        width: 255,
                         padding: const EdgeInsets.only(
                             top: 15, bottom: 5, left: 35, right: 10),
-                        color: Colors.white,
+                        color: const Color.fromARGB(255, 244, 240, 240),
                         child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -321,10 +332,10 @@ class MyContainerApp extends StatelessWidget {
               width: 327,
               height: 100,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: const Color.fromARGB(255, 244, 240, 240),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                    color: const Color.fromARGB(255, 25, 141, 182), width: 2),
+                    color: const Color.fromARGB(255, 255, 255, 255), width: 2),
               ),
               child: Stack(
                 alignment: Alignment.topRight,
@@ -333,10 +344,10 @@ class MyContainerApp extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Container(
-                        width: 270,
+                        width: 255,
                         padding: const EdgeInsets.only(
                             top: 15, bottom: 5, left: 35, right: 10),
-                        color: Colors.white,
+                        color: const Color.fromARGB(255, 244, 240, 240),
                         child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -417,10 +428,10 @@ class MyContainerApp extends StatelessWidget {
               width: 327,
               height: 100,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: const Color.fromARGB(255, 244, 240, 240),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                    color: const Color.fromARGB(255, 25, 141, 182), width: 2),
+                    color: const Color.fromARGB(255, 255, 255, 255), width: 2),
               ),
               child: Stack(
                 alignment: Alignment.topRight,
@@ -429,10 +440,10 @@ class MyContainerApp extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Container(
-                        width: 270,
+                        width: 255,
                         padding: const EdgeInsets.only(
                             top: 15, bottom: 5, left: 35, right: 10),
-                        color: Colors.white,
+                        color: const Color.fromARGB(255, 244, 240, 240),
                         child: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
