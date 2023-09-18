@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
               fontSize: 20,
             ))),*/
     const HomePage1(),
-    const Appointment(),
+    const MyApp(),
     const MyContainerApp(),
     const FeedbackPage(),
   ];

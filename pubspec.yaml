@@ -38,6 +38,8 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   table_calendar: ^3.0.9
   flutter_rating_bar: ^4.0.1
+  firebase_core: ^2.15.1
+  firebase_auth: ^4.9.0
 
 dev_dependencies:
   flutter_test:
@@ -86,6 +88,8 @@ flutter:
      - assets/notification3.png
      - assets/notification4.png
      - assets/notification5.png
+     - assets/doctor11.jpg
+     - assets/doctor12.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
