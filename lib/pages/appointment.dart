@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_17/pages/home_page.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import 'home_page.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -50,6 +52,7 @@ class _MyAppState extends State<MyApp> {
     "10:00 AM",
   ];
   bool isMorning = true;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   ElevatedButton buildTimeSlotButton(int index, String timeSlot) {
     return ElevatedButton(
@@ -72,10 +75,11 @@ class _MyAppState extends State<MyApp> {
       child: Text(
         timeSlot,
         style: const TextStyle(
-            fontSize: 11,
-            color: Colors.white,
-            fontFamily: 'RedHatDisplay',
-            fontWeight: FontWeight.bold),
+          fontSize: 11,
+          color: Colors.white,
+          fontFamily: 'RedHatDisplay',
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
@@ -122,7 +126,7 @@ class _MyAppState extends State<MyApp> {
             isMorningButton ? "Morning " : "Evening",
             style: TextStyle(
               fontFamily: 'RedHatDisplay',
-              fontWeight: FontWeight.bold, // Make text bold
+              fontWeight: FontWeight.bold,
               color: isCurrent
                   ? Colors.white
                   : const Color.fromRGBO(140, 143, 165, 1),
@@ -151,7 +155,8 @@ class _MyAppState extends State<MyApp> {
         return AlertDialog(
           title: const Text("Not Available"),
           content: const Text(
-              "Selected day is a weekend and not available for appointments."),
+            "Selected day is a weekend and not available for appointments.",
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -178,7 +183,8 @@ class _MyAppState extends State<MyApp> {
         return AlertDialog(
           title: const Text("Missing Selection"),
           content: const Text(
-              "Please select both date and a time slot to make an appointment."),
+            "Please select both date and a time slot to make an appointment.",
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -192,8 +198,32 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  void _showAppointmentConfirmationDialog() {
+  Future<void> _saveAppointmentToFirestore(
+      DateTime selectedDate, String selectedTime) async {
+    try {
+      // Replace 'appointments' with your Firestore collection name
+      final appointmentCollection = firestore.collection('appointments');
+
+      await appointmentCollection.add({
+        'date': selectedDate,
+        'time': selectedTime,
+      });
+
+      print('Appointment saved to Firestore.');
+    } catch (e) {
+      print('Error saving appointment: $e');
+    }
+  }
+
+  void _showAppointmentConfirmationDialog() async {
     if (selectedTimeSlot != null) {
+      final selectedDate = today;
+      final selectedTime = isMorning
+          ? morningTimeSlots[selectedTimeSlot!]
+          : eveningTimeSlots[selectedTimeSlot!];
+
+      await _saveAppointmentToFirestore(selectedDate, selectedTime);
+
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -256,7 +286,6 @@ class _MyAppState extends State<MyApp> {
                   fontWeight: FontWeight.bold,
                   fontFamily: 'RedHatDisplay',
                   fontSize: 18,
-
                   color: Colors.black, // Set the title color to black
                 ),
               ),
@@ -282,7 +311,9 @@ class _MyAppState extends State<MyApp> {
             TableCalendar(
               rowHeight: 35,
               headerStyle: const HeaderStyle(
-                  formatButtonVisible: false, titleCentered: true),
+                formatButtonVisible: false,
+                titleCentered: true,
+              ),
               availableGestures: AvailableGestures.all,
               selectedDayPredicate: (day) => isSameDay(day, today),
               focusedDay: today,
@@ -375,12 +406,15 @@ class _MyAppState extends State<MyApp> {
                           borderRadius: BorderRadius.circular(14.0),
                         ),
                       ),
-                      child: const Text("Make Appointment",
-                          style: TextStyle(
-                              color: Color.fromRGBO(28, 107, 164, 1),
-                              fontFamily: 'RedHatDisplay',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16)),
+                      child: const Text(
+                        "Make Appointment",
+                        style: TextStyle(
+                          color: Color.fromRGBO(28, 107, 164, 1),
+                          fontFamily: 'RedHatDisplay',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
                   ),
                 ],

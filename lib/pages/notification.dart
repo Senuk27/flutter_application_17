@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_17/pages/doctor_details.dart';
 import 'package:flutter_application_17/pages/doctor_feedback1.dart';
 import 'package:flutter_application_17/pages/medicine_description.dart';
+import 'package:flutter_application_17/pages/record_update.dart';
+import 'package:flutter_application_17/pages/schedules.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -51,9 +53,15 @@ class NotificationPage extends StatelessWidget {
               const SizedBox(height: 20.0),
               buildNotificationItem(
                 'assets/notification1.png',
-                '3 Schedules!',
-                'Check your schedule Today',
-                () {},
+                '5 Schedules !',
+                'Check your recent schedule ',
+                () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CustomAppBar()),
+                  );
+                },
               ),
               const SizedBox(height: 20.0),
               buildNotificationItem(
@@ -77,7 +85,7 @@ class NotificationPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const FeedbackPage1()),
+                        builder: (context) => const CustomAppBar2()),
                   );
                 },
               ),

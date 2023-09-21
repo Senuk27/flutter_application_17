@@ -4,7 +4,7 @@ import 'package:flutter_application_17/pages/doctor2.dart';
 import 'package:flutter_application_17/pages/doctor3.dart';
 import 'package:flutter_application_17/pages/doctor_details.dart';
 import 'package:flutter_application_17/pages/medicine_description.dart';
-import 'package:flutter_application_17/pages/patients_details1.dart';
+//import 'package:flutter_application_17/pages/patients_details1.dart';
 import 'package:flutter_application_17/pages/profile.dart';
 import 'notification.dart';
 
@@ -23,7 +23,7 @@ class HomePage1 extends StatelessWidget {
     // Handle profile image press
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const ProfilePage()),
+      MaterialPageRoute(builder: (context) => ProfilePage()),
     );
   }
 

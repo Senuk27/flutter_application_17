@@ -1,11 +1,25 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_17/pages/notification.dart';
 import 'package:flutter_application_17/pages/signin.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({
-    super.key,
-  });
+  final User? user = FirebaseAuth.instance.currentUser;
+
+  Future<void> _signOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      // After signing out, navigate to the login screen.
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) =>
+              SignInPage(), // Replace with your LoginScreen widget
+        ),
+      );
+    } catch (e) {
+      print('Error during sign-out: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -230,18 +244,14 @@ class ProfilePage extends StatelessWidget {
                     title: const Text(
                       'Logout',
                       style: TextStyle(
-                          fontFamily: 'RedHatDisplay',
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
+                        fontFamily: 'RedHatDisplay',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     onTap: () {
-                      // Handle logout icon press
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignInPage(),
-                        ),
-                      );
+                      // Handle logout when the ListTile is tapped
+                      _signOut(context);
                     },
                   );
                 } else {

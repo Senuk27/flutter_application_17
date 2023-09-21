@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_17/pages/patient_details2.dart';
 
@@ -9,6 +10,28 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
+  final TextEditingController patientNameController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
+  final TextEditingController parentController = TextEditingController();
+  final TextEditingController adressController = TextEditingController();
+
+  void sendDataToFirebase() {
+    String personName = patientNameController.text;
+    String mobile = mobileController.text;
+    String parent = parentController.text;
+    String adress = adressController.text;
+
+    FirebaseFirestore.instance.collection('patient_details').add({
+      'PatientName': personName,
+      'Mobile': mobile,
+      'Parent': parent,
+      'Address': adress,
+    }).catchError((error) {
+      // Error occurred while sending data
+      print('Error sending data to Firestore: $error');
+    });
+  }
+
   final TextEditingController _nameController = TextEditingController();
   final List<String> days =
       List.generate(31, (index) => (index + 1).toString());
@@ -112,7 +135,7 @@ class _MyPageState extends State<MyPage> {
                     const SizedBox(height: 10),
                     TextFormField(
                       // validating the form
-                      controller: _nameController,
+                      controller: patientNameController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please enter the patient's name,";
@@ -245,7 +268,7 @@ class _MyPageState extends State<MyPage> {
                     ),
                     const SizedBox(height: 6),
                     TextFormField(
-                      controller: _mobileController, //validating mobile number
+                      controller: mobileController, //validating mobile number
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please enter a mobile number";
@@ -273,7 +296,7 @@ class _MyPageState extends State<MyPage> {
                     const SizedBox(height: 6),
                     TextFormField(
                       controller:
-                          _parentMobileController, //validating parent's mobile number
+                          parentController, //validating parent's mobile number
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please enter the parent's mobile number";
@@ -300,7 +323,7 @@ class _MyPageState extends State<MyPage> {
                     ),
                     const SizedBox(height: 4),
                     TextFormField(
-                      controller: _addressController, //validating address
+                      controller: adressController, //validating address
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please enter the personal address";
@@ -322,6 +345,8 @@ class _MyPageState extends State<MyPage> {
                         // Validate the form before proceeding
                         if (_formKey.currentState!.validate()) {
                           // Redirect to the next page when clicked
+                          sendDataToFirebase();
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(

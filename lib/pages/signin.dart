@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_17/pages/home_page.dart';
 import 'package:flutter_application_17/pages/signup.dart';
@@ -12,8 +13,97 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   bool _rememberMe = false;
   bool _isPasswordVisible = false;
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  String? errorMessage;
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const Icon(
+                Icons.error,
+                color: Color.fromARGB(255, 44, 98, 140),
+                size: 80,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                message,
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 44, 98, 140),
+              ),
+              child: const Text(
+                'OK',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _signInWithEmailAndPassword() async {
+    try {
+      if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+        // Handle empty email or password fields
+        throw 'Please enter both email and password.';
+      }
+
+      final UserCredential userCredential =
+          await _auth.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+
+      if (userCredential.user != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
+      } else {
+        // Handle authentication errors
+        throw 'Authentication failed. Please check your email and password.';
+      }
+
+      errorMessage = null;
+    } catch (e) {
+      setState(() {
+        if (e is FirebaseAuthException && e.code == 'user-not-found') {
+          errorMessage = 'User not found. Please check your email.';
+        } else {
+          errorMessage = e.toString();
+        }
+      });
+      print('Login error: $e');
+      _showErrorDialog(errorMessage!); // Show the error dialog
+    }
+  }
+
+  //final TextEditingController _emailController = TextEditingController();
+  //final TextEditingController _passwordController = TextEditingController();
+
+/*
 
   @override
   void dispose() {
@@ -61,7 +151,7 @@ class _SignInPageState extends State<SignInPage> {
         ),
       );
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +212,7 @@ class _SignInPageState extends State<SignInPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: TextField(
-                  controller: _emailController,
+                  controller: emailController,
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.all(12),
                     border: InputBorder.none,
@@ -150,7 +240,7 @@ class _SignInPageState extends State<SignInPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: TextField(
-                  controller: _passwordController,
+                  controller: passwordController,
                   obscureText: !_isPasswordVisible,
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(12),
@@ -216,7 +306,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
               const SizedBox(height: 1),
               ElevatedButton(
-                onPressed: _performSignIn,
+                onPressed: _signInWithEmailAndPassword,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 25, 142, 182),
                   shape: RoundedRectangleBorder(
