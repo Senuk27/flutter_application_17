@@ -12,8 +12,7 @@ class ProfilePage extends StatelessWidget {
       // After signing out, navigate to the login screen.
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) =>
-              SignInPage(), // Replace with your LoginScreen widget
+          builder: (context) => SignInPage(), // Replace LoginScreen widget
         ),
       );
     } catch (e) {
@@ -114,7 +113,6 @@ class ProfilePage extends StatelessWidget {
                     ],
                   );
                 } else if (index == 1) {
-                  // History
                   return ListTile(
                     leading: const Icon(
                       Icons.history,

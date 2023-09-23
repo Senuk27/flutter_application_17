@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_17/pages/home_page.dart';
 import 'package:flutter_application_17/pages/signin.dart';
@@ -248,7 +248,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const HomePage(),
+                        builder: (context) => const SignInPage(),
                       ),
                     );
                   }

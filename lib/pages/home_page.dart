@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_application_17/pages/appointment.dart';
 import 'package:flutter_application_17/pages/feedback_home.dart';
-import 'package:flutter_application_17/pages/feedbacks.dart';
+//import 'package:flutter_application_17/pages/feedbacks.dart';
 import 'package:flutter_application_17/pages/home_page1.dart';
 import 'package:flutter_application_17/pages/records.dart';
 

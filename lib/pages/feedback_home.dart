@@ -3,9 +3,9 @@ import 'package:flutter_application_17/pages/doctor_feedback1.dart';
 import 'package:flutter_application_17/pages/doctor_feedback2.dart';
 import 'package:flutter_application_17/pages/doctor_feedback3.dart';
 import 'package:flutter_application_17/pages/home_page.dart';
-import 'doctor1.dart';
-import 'doctor2.dart';
-import 'doctor3.dart';
+//import 'doctor1.dart';
+//import 'doctor2.dart';
+//import 'doctor3.dart';
 
 class FeedbackHome extends StatelessWidget {
   const FeedbackHome({Key? key});
@@ -51,9 +51,9 @@ class FeedbackHome extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(
-                        height: 60.0), // Add spacing above the new text
+                        height: 70.0), // Add spacing above the new text
                     const Text(
-                      'Great, You’re Almost There',
+                      '    Great, You’re Almost There',
                       style: TextStyle(
                         fontSize: 25.0,
                         fontWeight: FontWeight.bold,
@@ -63,14 +63,14 @@ class FeedbackHome extends StatelessWidget {
                     const SizedBox(
                         height: 10.0), // Add spacing above the new text
                     const Text(
-                      'if you want  to give feedback  select your doctor',
+                      '                      if you want  to give feedback  select\n                                             your doctor',
                       style: TextStyle(
                         fontSize: 13.0,
                         fontFamily: 'RedHatDisplay',
                       ),
                     ),
                     const SizedBox(
-                        height: 20.0), // Add spacing above containers
+                        height: 70.0), // Add spacing above containers
                     Column(
                       children: [
                         Container(
